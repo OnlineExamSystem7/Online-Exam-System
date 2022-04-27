@@ -1,0 +1,27 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/Content/bootstrap.css" rel="stylesheet" />
+    <meta name="viewport" content="width=device-width" />
+    <title>Dashboard</title>
+  
+</head>
+<body>
+    <div class="row">
+        <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 btn-btn-sucess" style="height:900px;border:1px solid grey;background-color:#808080ff">
+            <div class="list-group"style="margin-left:13px">
+                <a href="#" class="list-group-item">Report</a>
+                <a href="#" class="list-group-item">Add New Category</a>
+                <a href="#" class="list-group-item">Add Quesions</a>
+            </div>
+        </div>
+        <div class="col-lg-10 col-md-10 col-sm-10 col-xs-10 btn-btn-sucess" style="height:900px;border:1px solid grey">
+            @RenderBody()
+        </div>
+    </div>
+
+
+
+</body>
+</html>

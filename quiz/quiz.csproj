@@ -218,6 +218,7 @@
     <Content Include="Views\Home\slogin.cshtml" />
     <Content Include="Views\Shared\_Layout2.cshtml" />
     <Content Include="Views\Home\AddCategory.cshtml" />
+    <Content Include="Views\Home\Addquestion.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

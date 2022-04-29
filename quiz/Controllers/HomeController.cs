@@ -40,7 +40,7 @@ namespace quiz.Controllers
         {
             Session["ad_id"] = 1;
             int adid = Convert.ToInt32(Session["ad_id"].ToString());
-            List <tbl_category> li = db.tbl_category.Where(x => x.cat_fk_adid == adid).OrderByDescending(x => x.cat_id).ToList();
+            List<tbl_category> li = db.tbl_category.Where(x => x.cat_fk_adid == adid).OrderByDescending(x => x.cat_id).ToList();
             ViewData["list"] = li;
             return View();
         }
@@ -50,9 +50,9 @@ namespace quiz.Controllers
         {
             List<tbl_category> li = db.tbl_category.OrderByDescending(x => x.cat_id).ToList();
             ViewData["list"] = li;
-            tbl_category c=new tbl_category();
+            tbl_category c = new tbl_category();
             c.cat_name = cat.cat_name;
-            c.cat_fk_adid=Convert.ToInt32(Session["ad_id"].ToString());
+            c.cat_fk_adid = Convert.ToInt32(Session["ad_id"].ToString());
             db.tbl_category.Add(c);
             db.SaveChanges();
 

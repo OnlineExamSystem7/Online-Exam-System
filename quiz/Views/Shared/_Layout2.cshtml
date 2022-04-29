@@ -9,12 +9,20 @@
 </head>
 <body>
     <div class="row">
-        <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 btn-btn-sucess" style="height:900px;border:1px solid grey;background-color:#808080ff">
-            <div class="list-group"style="margin-left:13px">
-                <a href="#" class="list-group-item">Report</a>
-                <a href="#" class="list-group-item">Add New Category</a>
-                <a href="#" class="list-group-item">Add Quesions</a>
+        <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 " style="height:900px;border:1px solid gray;background-color:gray">
+            <div style="width:100%" class="container list-group">
+                <div class="list-group-item">
+                    @Html.ActionLink("Add Category", "AddCategory", new { @class = "list-group-items" })
+                </div>
+            <div class="list-group-item">
+                @Html.ActionLink("Add Questions", "Addquestion", new { @class = "list-group-items" })
             </div>
+            <div class="list-group-item">
+                @Html.ActionLink("Report", "Dashboard", new { @class = "list-group-items" })
+            </div>
+
+
+                                        </div>
         </div>
         <div class="col-lg-10 col-md-10 col-sm-10 col-xs-10 btn-btn-sucess" style="height:900px;border:1px solid grey">
             @RenderBody()

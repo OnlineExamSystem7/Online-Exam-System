@@ -53,7 +53,7 @@
           <Property Name="S_PASSWORD" Type="nvarchar" MaxLength="20" Nullable="false" />
           <Property Name="S_IMAGE" Type="nvarchar(max)" Nullable="false" />
         </EntityType>
-        <Association Name="FK__tbl_categ__cat_f__22AA2996">
+        <Association Name="FK__tbl_categ__cat_f__1ED998B2">
           <End Role="TBL_ADMIN" Type="Self.TBL_ADMIN" Multiplicity="0..1" />
           <End Role="tbl_category" Type="Self.tbl_category" Multiplicity="*" />
           <ReferentialConstraint>
@@ -65,7 +65,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__TBL_QUEST__q_fk___239E4DCF">
+        <Association Name="FK__TBL_QUEST__q_fk___1FCDBCEB">
           <End Role="tbl_category" Type="Self.tbl_category" Multiplicity="0..1" />
           <End Role="TBL_QUESTIONS" Type="Self.TBL_QUESTIONS" Multiplicity="*" />
           <ReferentialConstraint>
@@ -95,11 +95,11 @@
           <EntitySet Name="TBL_QUESTIONS" EntityType="Self.TBL_QUESTIONS" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TBL_SETEXAM" EntityType="Self.TBL_SETEXAM" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TBL_STUDENT" EntityType="Self.TBL_STUDENT" Schema="dbo" store:Type="Tables" />
-          <AssociationSet Name="FK__tbl_categ__cat_f__22AA2996" Association="Self.FK__tbl_categ__cat_f__22AA2996">
+          <AssociationSet Name="FK__tbl_categ__cat_f__1ED998B2" Association="Self.FK__tbl_categ__cat_f__1ED998B2">
             <End Role="TBL_ADMIN" EntitySet="TBL_ADMIN" />
             <End Role="tbl_category" EntitySet="tbl_category" />
           </AssociationSet>
-          <AssociationSet Name="FK__TBL_QUEST__q_fk___239E4DCF" Association="Self.FK__TBL_QUEST__q_fk___239E4DCF">
+          <AssociationSet Name="FK__TBL_QUEST__q_fk___1FCDBCEB" Association="Self.FK__TBL_QUEST__q_fk___1FCDBCEB">
             <End Role="tbl_category" EntitySet="tbl_category" />
             <End Role="TBL_QUESTIONS" EntitySet="TBL_QUESTIONS" />
           </AssociationSet>

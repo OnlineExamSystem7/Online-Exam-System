@@ -46,7 +46,7 @@ namespace quiz.Controllers
         [HttpGet]
         public ActionResult AddCategory()
         {
-           // Session["ad_id"] = 1;
+            Session["ad_id"] = 1;
             int adid = Convert.ToInt32(Session["ad_id"].ToString());
             List<tbl_category> li = db.tbl_category.Where(x => x.cat_fk_adid == adid).OrderByDescending(x => x.cat_id).ToList();
             ViewData["list"] = li;

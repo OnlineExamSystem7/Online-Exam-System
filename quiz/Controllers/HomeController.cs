@@ -11,6 +11,20 @@ namespace quiz.Controllers
     {
         DBQUIZEntities db = new DBQUIZEntities();
         [HttpGet]
+
+       
+            public ActionResult Logout()
+        {
+            Session.Abandon();
+            Session.RemoveAll();
+            return RedirectToAction("Index");
+
+            return View();
+        }
+
+
+
+
         public ActionResult tlogin()
         {
 
@@ -97,14 +111,17 @@ namespace quiz.Controllers
 
             db.TBL_QUESTIONS.Add(QA);
             db.SaveChanges();
-            ViewBag.msg = "Question Added Successfully...";
+            TempData["msg"] = "Question Added Successfully...";
+            return RedirectToAction("Addquestion");
 
-
-            return View();
+           
         }
         
         public ActionResult Index()
-        {
+        { if(Session["ad_id"]!=null)
+            {
+                return RedirectToAction("Dashboard");
+            }
             return View();
         }
 

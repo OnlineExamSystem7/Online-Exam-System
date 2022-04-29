@@ -5,12 +5,12 @@
     Layout = "~/Views/Shared/_Layout2.cshtml";
 }
 
-<h2>Addquestion</h2>
+<h2>Add Question</h2>
 
 @using (Html.BeginForm()) 
 {
     @Html.AntiForgeryToken()
-    <h1 style="color:green">@ViewBag.msg</h1>
+    <h1 style="color:green">@TempData["msg"]</h1>
     <div class="form-horizontal">
         <div class="form-group">
             @Html.LabelFor(model => model.q_fk_catid, "q_fk_catid", htmlAttributes: new { @class = "control-label col-md-2" })
@@ -79,6 +79,3 @@
     </div>
 }
 
-<div>
-    @Html.ActionLink("Back", "Index")
-</div>

@@ -20,55 +20,38 @@
     {
         @Html.AntiForgeryToken()
         
-        <div class="form-horizontal">
-            
-            <hr />
-            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-            <div class="form-group">
-                @Html.LabelFor(model => model.Q_TEXT, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.DisplayFor(model => model.Q_TEXT, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.Q_TEXT, "", new { @class = "text-danger" })
+        <div class="row">
+
+            <div class="container" style="margin:0 auto;margin-top:150px;font-family:'Arial Rounded MT'">
+
+                <div class="row">
+                    <h1>@Html.DisplayFor(x => x.Q_TEXT)</h1>
+
                 </div>
-            </div>
-    
-            <div class="form-group">
-                @Html.LabelFor(model => model.OPA, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    <span> @Html.RadioButtonFor(model => model.OPA, new { htmlAttributes = new { @class = "form-control" } })@Model.OPA</span> 
-                    @Html.ValidationMessageFor(model => model.OPA, "", new { @class = "text-danger" })
+
+                <div class="row">
+                    <h3>@Html.RadioButtonFor(x => x.OPA, new { @class = "form-control" }) @Model.OPA </h3>
+
                 </div>
-            </div>
-    
-            <div class="form-group">
-                @Html.LabelFor(model => model.OPB, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    <span> @Html.RadioButtonFor(model => model.OPB, new { htmlAttributes = new { @class = "form-control" } })@Model.OPB</span>
-                    @Html.ValidationMessageFor(model => model.OPB, "", new { @class = "text-danger" })
+
+                <div class="row">
+                    <h3>@Html.RadioButtonFor(x => x.OPB, new { @class = "form-control" }) @Model.OPB </h3>
+
                 </div>
-            </div>
-    
-            <div class="form-group">
-                @Html.LabelFor(model => model.OPC, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    <span> @Html.RadioButtonFor(model => model.OPC, new { htmlAttributes = new { @class = "form-control" } })@Model.OPC</span>
-                    @Html.ValidationMessageFor(model => model.OPC, "", new { @class = "text-danger" })
+                <div class="row">
+                    <h3>@Html.RadioButtonFor(x => x.OPC, new { @class = "form-control" }) @Model.OPC </h3>
+
                 </div>
-            </div>
-    
-            <div class="form-group">
-                @Html.LabelFor(model => model.OPD, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    <span> @Html.RadioButtonFor(model => model.OPD, new { htmlAttributes = new { @class = "form-control" } })@Model.OPD</span>
-                    @Html.ValidationMessageFor(model => model.OPD, "", new { @class = "text-danger" })
+                <div class="row">
+                    <h3>@Html.RadioButtonFor(x => x.OPD, new { @class = "form-control" }) @Model.OPD </h3>
+
                 </div>
-            </div>
-    
-            <div class="form-group">
-                <div class="col-md-offset-2 col-md-10">
-                    <input type="submit" value="Submit" class="btn btn-default" />
+                <div class="rown">
+                    <input type="submit" value="submit" class="btn btn-success"/>
                 </div>
+
             </div>
+
         </div>
     }
     

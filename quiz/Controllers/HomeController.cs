@@ -153,19 +153,56 @@ namespace quiz.Controllers
         
         public ActionResult QuizStart()
         {
-            TBL_QUESTIONS q=null;
-            if (TempData["qid"]==null)
+            
+            if (TempData["i"] == null)
             {
-                int examid=Convert.ToInt32(TempData["exampid"].ToString());
-                q=db.TBL_QUESTIONS.First(x=>x.q_fk_catid==examid);
+                TempData["i"] = 1;
+            }
+            if (Session["std_id"]==null)
+            {
+                return RedirectToAction("slogin");
+            }
 
-                //TBL_QUESTIONS q = db.TBL_QUESTIONS.Where(x => x.q_fk_catid == examid).SingleOrDefault();
-             }
+            try
+            {
+                TBL_QUESTIONS q = null;
+                int examid = Convert.ToInt32(TempData["examid"].ToString());
+                if (TempData["qid"] == null)
+                {
 
-            return View(q) ;
+                    q = db.TBL_QUESTIONS.First(x => x.q_fk_catid == examid);
+                    var list = db.TBL_QUESTIONS.Skip(Convert.ToInt32(TempData["i"].ToString()));
+                    int qid=  list.First().QUESTION_ID;
+
+                    TempData["qid"] = qid;
+                    //TBL_QUESTIONS q = db.TBL_QUESTIONS.Where(x => x.q_fk_catid == examid).SingleOrDefault();
+                }
+                else
+                {
+                    int qid = Convert.ToInt32(TempData["qid"].ToString());
+                    q = db.TBL_QUESTIONS.Where(x => x.QUESTION_ID == qid && x.q_fk_catid == examid).SingleOrDefault();
+                    
+                    var list = db.TBL_QUESTIONS.Skip(Convert.ToInt32(TempData["i"].ToString()));
+                    qid = list.First().QUESTION_ID;
+                    TempData["qid"] = qid;
+                    TempData["i"] = Convert.ToInt32(TempData["i"].ToString()) + 1;
+                }
+                TempData.Keep();
+
+                return View(q);
+            }
+            catch (Exception)
+            {
+                return RedirectToAction("StudentExam");
+            }
+            
         }
+        [HttpPost]
 
-
+        public ActionResult QuizStart(TBL_QUESTIONS q)
+        {
+            return RedirectToAction("QuizStart");
+        }
         public ActionResult Dashboard()
         {
             if (Session["ad_id"] == null)

@@ -11,31 +11,16 @@ namespace quiz.Models
 {
     using System;
     using System.Collections.Generic;
-    using System.ComponentModel.DataAnnotations;
-
+    
     public partial class TBL_QUESTIONS
     {
         public int QUESTION_ID { get; set; }
-        [Display(Name= "Questions")]
-        [Required(ErrorMessage= "*")]
         public string Q_TEXT { get; set; }
-        [Display(Name = "Option-1")]
-        [Required(ErrorMessage = "*")]
         public string OPA { get; set; }
-        [Display(Name = "Option-2")]
-        [Required(ErrorMessage = "*")]
         public string OPB { get; set; }
-        [Display(Name = "Option-3")]
-        [Required(ErrorMessage = "*")]
         public string OPC { get; set; }
-        [Display(Name = "Option-4")]
-        [Required(ErrorMessage = "*")]
         public string OPD { get; set; }
-        [Display(Name = "Correct Answer")]
-        [Required(ErrorMessage = "*")]
         public string COP { get; set; }
-        [Display(Name = "Select Category")]
-        [Required(ErrorMessage = "*")]
         public Nullable<int> q_fk_catid { get; set; }
     
         public virtual tbl_category tbl_category { get; set; }

@@ -164,7 +164,8 @@
   <ItemGroup>
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
-    <Content Include="Content\img\pic.jpg" />
+    <Content Include="Content\img\main.jpg" />
+    <Content Include="Content\img\sregister.jpg" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -219,6 +220,7 @@
     <Content Include="Views\Home\slogin.cshtml" />
     <Content Include="Views\Shared\_Layout2.cshtml" />
     <Content Include="Views\Home\AddCategory.cshtml" />
+    <Content Include="Views\Home\sregister.cshtml" />
     <Content Include="Views\Home\Addquestion.cshtml" />
   </ItemGroup>
   <ItemGroup>

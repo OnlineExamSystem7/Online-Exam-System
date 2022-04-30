@@ -60,6 +60,12 @@ insert into TBL_ADMIN values('root','admin')
 select * from TBL_ADMIN
 select * from tbl_category
 
+------------------------
+alter table tbl_category
+
+add cat_encryptedstring varchar(max)
+
+
 
 
 

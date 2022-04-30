@@ -54,7 +54,11 @@
           <Property Name="S_PASSWORD" Type="nvarchar" MaxLength="20" Nullable="false" />
           <Property Name="S_IMAGE" Type="nvarchar(max)" Nullable="false" />
         </EntityType>
+<<<<<<< HEAD
+        <Association Name="FK__tbl_categ__cat_f__22AA2996">
+=======
         <Association Name="FK__tbl_categ__cat_f__1FCDBCEB">
+>>>>>>> e80ce92cdb1d8418198d991e0be456d2b3ae154d
           <End Role="TBL_ADMIN" Type="Self.TBL_ADMIN" Multiplicity="0..1" />
           <End Role="tbl_category" Type="Self.tbl_category" Multiplicity="*" />
           <ReferentialConstraint>
@@ -66,7 +70,11 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+<<<<<<< HEAD
+        <Association Name="FK__TBL_QUEST__q_fk___239E4DCF">
+=======
         <Association Name="FK__TBL_QUEST__q_fk___20C1E124">
+>>>>>>> e80ce92cdb1d8418198d991e0be456d2b3ae154d
           <End Role="tbl_category" Type="Self.tbl_category" Multiplicity="0..1" />
           <End Role="TBL_QUESTIONS" Type="Self.TBL_QUESTIONS" Multiplicity="*" />
           <ReferentialConstraint>
@@ -96,11 +104,19 @@
           <EntitySet Name="TBL_QUESTIONS" EntityType="Self.TBL_QUESTIONS" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TBL_SETEXAM" EntityType="Self.TBL_SETEXAM" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TBL_STUDENT" EntityType="Self.TBL_STUDENT" Schema="dbo" store:Type="Tables" />
+<<<<<<< HEAD
+          <AssociationSet Name="FK__tbl_categ__cat_f__22AA2996" Association="Self.FK__tbl_categ__cat_f__22AA2996">
+            <End Role="TBL_ADMIN" EntitySet="TBL_ADMIN" />
+            <End Role="tbl_category" EntitySet="tbl_category" />
+          </AssociationSet>
+          <AssociationSet Name="FK__TBL_QUEST__q_fk___239E4DCF" Association="Self.FK__TBL_QUEST__q_fk___239E4DCF">
+=======
           <AssociationSet Name="FK__tbl_categ__cat_f__1FCDBCEB" Association="Self.FK__tbl_categ__cat_f__1FCDBCEB">
             <End Role="TBL_ADMIN" EntitySet="TBL_ADMIN" />
             <End Role="tbl_category" EntitySet="tbl_category" />
           </AssociationSet>
           <AssociationSet Name="FK__TBL_QUEST__q_fk___20C1E124" Association="Self.FK__TBL_QUEST__q_fk___20C1E124">
+>>>>>>> e80ce92cdb1d8418198d991e0be456d2b3ae154d
             <End Role="tbl_category" EntitySet="tbl_category" />
             <End Role="TBL_QUESTIONS" EntitySet="TBL_QUESTIONS" />
           </AssociationSet>

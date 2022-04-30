@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.IO;
 
 namespace quiz.Controllers
 {
@@ -11,19 +12,72 @@ namespace quiz.Controllers
     {
         DBQUIZEntities db = new DBQUIZEntities();
         [HttpGet]
+        public ActionResult sregister()
+        {
 
-       
-            public ActionResult Logout()
+
+            return View();
+        }
+        [HttpPost]
+        public ActionResult sregister(TBL_STUDENT svw, HttpPostedFileBase imgfile)
+        {
+            TBL_STUDENT s = new TBL_STUDENT();
+            try
+            {
+                s.S_NAME = svw.S_NAME;
+                s.S_PASSWORD = svw.S_PASSWORD;
+                s.S_IMAGE = uploadimage(imgfile);
+                db.TBL_STUDENT.Add(s);
+                db.SaveChanges();
+                return RedirectToAction("slogin");
+            }
+            catch (Exception)
+            {
+                ViewBag.msg = "Data Could not be inserted....!";
+            }
+
+            return View();
+        }
+        public string uploadimage(HttpPostedFileBase imgfile )
+        {
+            string path = "-1";
+
+            try
+            {
+                if(imgfile!= null && imgfile.ContentLength>0)
+                {
+                    string extension = Path.GetExtension(imgfile.FileName);
+                    if (extension.ToLower().Equals("jpg") || extension.ToLower().Equals("jpeg") || extension.ToLower().Equals("png"))
+                    {
+                        //Path.Combine(Server.MapPath("~/Content/upload"), random + Path.GetFileName(file.FileName));
+
+                        Random r=new Random();
+                        path = Path.Combine(Server.MapPath("~/Content/img"),r+Path.GetFileName(imgfile.FileName));
+                        imgfile.SaveAs(path);
+                        path = "~/Content/img" + r + Path.GetFileName(imgfile.FileName);
+                    }
+                }
+
+
+
+
+            }
+            catch(Exception)
+            {
+
+            }
+            return path;
+        }
+
+        [HttpGet]
+        public ActionResult Logout()
         {
             Session.Abandon();
             Session.RemoveAll();
             return RedirectToAction("Index");
 
-            //return View();
+
         }
-
-
-
 
         public ActionResult tlogin()
         {
@@ -48,6 +102,24 @@ namespace quiz.Controllers
             return View();
         }
         public ActionResult slogin()
+        {
+            return View();
+        }
+        [HttpPost]
+        public ActionResult slogin(TBL_STUDENT s)
+        {
+            TBL_STUDENT std=db.TBL_STUDENT.Where(x =>x.S_NAME==s.S_NAME && x.S_PASSWORD==s.S_PASSWORD).SingleOrDefault();
+            if(std== null)
+            {
+                ViewBag.msg = "Invalid Email or Password!";
+            }
+            else
+            {
+
+            }
+            return View();
+        }
+        public ActionResult StudentExam()
         {
             return View();
         }

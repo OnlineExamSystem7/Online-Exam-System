@@ -16,13 +16,13 @@ namespace quiz.Models
     {
         public TBL_ADMIN()
         {
-            this.tbl_category1 = new HashSet<tbl_category>();
+            this.tbl_category = new HashSet<tbl_category>();
         }
     
         public int AD_ID { get; set; }
         public string AD_NAME { get; set; }
         public string AD_PASSWORD { get; set; }
     
-        public virtual ICollection<tbl_category> tbl_category1 { get; set; }
+        public virtual ICollection<tbl_category> tbl_category { get; set; }
     }
 }

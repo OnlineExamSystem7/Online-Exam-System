@@ -19,7 +19,7 @@ namespace quiz.Controllers
             Session.RemoveAll();
             return RedirectToAction("Index");
 
-            return View();
+            //return View();
         }
 
 

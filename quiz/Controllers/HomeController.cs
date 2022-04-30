@@ -59,8 +59,6 @@ namespace quiz.Controllers
                 }
 
 
-
-
             }
             catch(Exception)
             {
@@ -115,24 +113,76 @@ namespace quiz.Controllers
             }
             else
             {
+                Session["std_id"] = std.S_ID;
                 return RedirectToAction("StudentExam");
             }
             return View();
         }
+
         public ActionResult StudentExam()
         {
+            if (Session["std_id"] == null)
+            {
+                return RedirectToAction("slogin");
+            }
+
             return View();
+        } 
+        [HttpPost]
+        public ActionResult StudentExam(string room)
+        {
+            List<tbl_category> list = db.tbl_category.ToList();
+
+            foreach(var item in list)
+            {
+                if (item.cat_encryptedstring ==room)
+                {
+                    TempData["exampid"] = item.cat_id;
+                    TempData.Keep();
+                    return RedirectToAction("QuizStart");
+                }
+                else
+                {
+                    ViewBag.error = "No Room Found.....";
+                }
+            }
+           
+
+            return View();
+        }
+        
+        public ActionResult QuizStart()
+        {
+            TBL_QUESTIONS q=null;
+            if (TempData["qid"]==null)
+            {
+                int examid=Convert.ToInt32(TempData["exampid"].ToString());
+                q=db.TBL_QUESTIONS.First(x=>x.q_fk_catid==examid);
+
+                //TBL_QUESTIONS q = db.TBL_QUESTIONS.Where(x => x.q_fk_catid == examid).SingleOrDefault();
+             }
+
+            return View(q) ;
         }
 
 
         public ActionResult Dashboard()
         {
+            if (Session["ad_id"] == null)
+            {
+                return RedirectToAction("Index");
+            }
             return View();
         }
         [HttpGet]
         public ActionResult AddCategory()
         {
-            Session["ad_id"] = 1;
+            if(Session["ad_id"]==null)
+                {
+                return RedirectToAction("Index");
+                }
+
+            //Session["ad_id"] = 1;
             int adid = Convert.ToInt32(Session["ad_id"].ToString());
             List<tbl_category> li = db.tbl_category.Where(x => x.cat_fk_adid == adid).OrderByDescending(x => x.cat_id).ToList();
             ViewData["list"] = li;
@@ -144,8 +194,12 @@ namespace quiz.Controllers
         {
             List<tbl_category> li = db.tbl_category.OrderByDescending(x => x.cat_id).ToList();
             ViewData["list"] = li;
+
+
+            Random r = new Random();
             tbl_category c = new tbl_category();
             c.cat_name = cat.cat_name;
+            c.cat_encryptedstring = crypto.Encrypt(cat.cat_name.Trim() + r.Next().ToString(), true);
             c.cat_fk_adid = Convert.ToInt32(Session["ad_id"].ToString());
             db.tbl_category.Add(c);
             db.SaveChanges();

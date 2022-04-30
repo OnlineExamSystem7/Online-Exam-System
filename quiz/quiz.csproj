@@ -129,6 +129,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\crypto.cs" />
     <Compile Include="Models\Model1.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -165,6 +166,7 @@
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\img\main.jpg" />
+    <Content Include="Content\img\roomid.jpg" />
     <Content Include="Content\img\sregister.jpg" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
@@ -223,6 +225,7 @@
     <Content Include="Views\Home\sregister.cshtml" />
     <Content Include="Views\Home\Addquestion.cshtml" />
     <Content Include="Views\Home\StudentExam.cshtml" />
+    <Content Include="Views\Home\QuizStart.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

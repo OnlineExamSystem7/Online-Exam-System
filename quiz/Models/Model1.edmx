@@ -20,6 +20,7 @@
           <Property Name="cat_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="cat_name" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="cat_fk_adid" Type="int" />
+          <Property Name="cat_encryptedstring" Type="varchar(max)" />
         </EntityType>
         <EntityType Name="TBL_QUESTIONS">
           <Key>
@@ -149,6 +150,7 @@
           <Property Name="cat_fk_adid" Type="Int32" />
           <NavigationProperty Name="TBL_ADMIN" Relationship="DBQUIZModel.FK__tbl_categ__cat_f__1ED998B2" FromRole="tbl_category" ToRole="TBL_ADMIN" />
           <NavigationProperty Name="TBL_QUESTIONS" Relationship="DBQUIZModel.FK__TBL_QUEST__q_fk___1FCDBCEB" FromRole="tbl_category" ToRole="TBL_QUESTIONS" />
+          <Property Name="cat_encryptedstring" MaxLength="Max" FixedLength="false" Unicode="false" Type="String" />
         </EntityType>
         <EntityType Name="TBL_QUESTIONS">
           <Key>
@@ -239,6 +241,7 @@
           <EntitySetMapping Name="tbl_category">
             <EntityTypeMapping TypeName="DBQUIZModel.tbl_category">
               <MappingFragment StoreEntitySet="tbl_category">
+                <ScalarProperty Name="cat_encryptedstring" ColumnName="cat_encryptedstring" />
                 <ScalarProperty Name="cat_fk_adid" ColumnName="cat_fk_adid" />
                 <ScalarProperty Name="cat_name" ColumnName="cat_name" />
                 <ScalarProperty Name="cat_id" ColumnName="cat_id" />

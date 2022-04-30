@@ -22,6 +22,7 @@ namespace quiz.Models
         public int cat_id { get; set; }
         public string cat_name { get; set; }
         public Nullable<int> cat_fk_adid { get; set; }
+        public string cat_encryptedstring { get; set; }
     
         public virtual TBL_ADMIN TBL_ADMIN { get; set; }
         public virtual ICollection<TBL_QUESTIONS> TBL_QUESTIONS { get; set; }

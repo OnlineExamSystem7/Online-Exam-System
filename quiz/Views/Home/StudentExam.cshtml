@@ -6,13 +6,42 @@
 <head>
     <meta name="viewport" content="width=device-width" />
     <title>Student Exam</title>
+
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/Content/bootstrap.css" rel="stylesheet" />
+
+    <style>
+        body {
+            background-image: url("../../Content/img/roomid.jpg");
+            background-size: cover;
+        }
+    </style>
+
 </head>
 <body>
-    <div>
-        <h1>Enter Room Number</h1>
-        <input type="text" id="room" name="room" placeholder="Room Number" class="form-control" />
-        <input type="submit" value="Submit" class="btn btn-info" />
+    @if (@ViewBag.error != null)
+    {
+    <div class="alert alert-danger">
+        <strong>Danger!</strong>@ViewBag.error
     </div>
-</body>
+    }
+
+
+
+
+        @using (Html.BeginForm())
+        {
+
+
+            <div class="container">
+                <br><br><br>
+                <h1 style="text-align:center;font-weight:bold;font-family:'Times New Roman'">Enter Room Number</h1>
+                <br><br>
+                <input type="text" id="room" name="room" placeholder="Room Number" class="form-control" />
+                <br />
+                <input type="submit" value="Submit" class="btn btn-success btn-block" />
+            </div>
+        }
+    </body>
 </html>
 

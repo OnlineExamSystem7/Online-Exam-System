@@ -4,14 +4,20 @@
     ViewBag.Title = "slogin";
 }
 <h2>Student Login</h2>
+@if (ViewBag.msg != null)
+{
+    <div class="alert alert-danger">
+        <strong>Error!</strong> @ViewBag.msg
+    </div>
+}
 
 <body>
-    @using (Html.BeginForm()) 
+    @using (Html.BeginForm())
     {
         @Html.AntiForgeryToken()
-        
+
         <div class="form-horizontal">
-            
+
             <hr />
             @Html.ValidationSummary(true, "", new { @class = "text-danger" })
             <div class="form-group">
@@ -21,23 +27,23 @@
                     @Html.ValidationMessageFor(model => model.S_NAME, "", new { @class = "text-danger" })
                 </div>
             </div>
-    
+
             <div class="form-group">
                 @Html.LabelFor(model => model.S_PASSWORD, htmlAttributes: new { @class = "control-label col-md-2" })
                 <div class="col-md-10">
-                    @Html.PasswordFor(model => model.S_PASSWORD, new { @class = "form-control" } )
+                    @Html.PasswordFor(model => model.S_PASSWORD, new { @class = "form-control" })
                     @Html.ValidationMessageFor(model => model.S_PASSWORD, "", new { @class = "text-danger" })
                 </div>
             </div>
-    
-           <!---- <div class="form-group">
-                @Html.LabelFor(model => model.S_IMAGE, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.PasswordFor(model => model.S_IMAGE, new { @class = "form-control" } )
-                    @Html.ValidationMessageFor(model => model.S_IMAGE, "", new { @class = "text-danger" })
-                </div>
-            </div>-->
-    
+
+            <!---- <div class="form-group">
+                 @Html.LabelFor(model => model.S_IMAGE, htmlAttributes: new { @class = "control-label col-md-2" })
+                 <div class="col-md-10">
+                     @Html.PasswordFor(model => model.S_IMAGE, new { @class = "form-control" } )
+                     @Html.ValidationMessageFor(model => model.S_IMAGE, "", new { @class = "text-danger" })
+                 </div>
+             </div>-->
+
             <div class="form-group">
                 <div class="col-md-offset-2 col-md-10">
                     <input type="submit" value="Login" class="btn btn-default" />
@@ -45,7 +51,7 @@
             </div>
         </div>
     }
-    
+
     <div>
         @Html.ActionLink("Register Now", "sregister")
     </div>

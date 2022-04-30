@@ -222,6 +222,7 @@
     <Content Include="Views\Home\AddCategory.cshtml" />
     <Content Include="Views\Home\sregister.cshtml" />
     <Content Include="Views\Home\Addquestion.cshtml" />
+    <Content Include="Views\Home\StudentExam.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

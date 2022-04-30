@@ -115,7 +115,7 @@ namespace quiz.Controllers
             }
             else
             {
-
+                return RedirectToAction("StudentExam");
             }
             return View();
         }

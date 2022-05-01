@@ -14,7 +14,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>quiz</RootNamespace>
     <AssemblyName>quiz</AssemblyName>
-    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
     <MvcBuildViews>false</MvcBuildViews>
     <UseIISExpress>true</UseIISExpress>
     <IISExpressSSLPort />
@@ -223,6 +223,7 @@
     <Content Include="Views\Home\Addquestion.cshtml" />
     <Content Include="Views\Home\StudentExam.cshtml" />
     <Content Include="Views\Home\QuizStart.cshtml" />
+    <Content Include="Views\Home\EndExam.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

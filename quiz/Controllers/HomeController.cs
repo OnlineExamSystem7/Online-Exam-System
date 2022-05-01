@@ -137,7 +137,14 @@ namespace quiz.Controllers
             {
                 if (item.cat_encryptedstring ==room)
                 {
-                    TempData["exampid"] = item.cat_id;
+                    List<TBL_QUESTIONS> li=db.TBL_QUESTIONS.Where(x=>x.q_fk_catid==item.cat_id).ToList();
+                    Queue<TBL_QUESTIONS>queue=new Queue<TBL_QUESTIONS>();
+                    foreach(TBL_QUESTIONS a in li)
+                    {
+                        queue.Enqueue(a);
+                    }
+                    TempData["questions"]=queue;
+                    TempData["score"] = 0;
                     TempData.Keep();
                     return RedirectToAction("QuizStart");
                 }
@@ -153,55 +160,49 @@ namespace quiz.Controllers
         
         public ActionResult QuizStart()
         {
-            
-            if (TempData["i"] == null)
-            {
-                TempData["i"] = 1;
-            }
-            if (Session["std_id"]==null)
+            if (Session["std_id"] == null)
             {
                 return RedirectToAction("slogin");
             }
+            TBL_QUESTIONS q = null;
 
-            try
+            if (TempData["questions"]!=null)
             {
-                TBL_QUESTIONS q = null;
-                int examid = Convert.ToInt32(TempData["examid"].ToString());
-                if (TempData["qid"] == null)
+                Queue<TBL_QUESTIONS> qlist = (Queue<TBL_QUESTIONS>)TempData["questions"];
+                if (qlist.Count>0)
                 {
+                    q = qlist.Peek();
+                    qlist.Dequeue();
+                    TempData["questions"] = qlist;
+                    TempData.Keep();
 
-                    q = db.TBL_QUESTIONS.First(x => x.q_fk_catid == examid);
-                    var list = db.TBL_QUESTIONS.Skip(Convert.ToInt32(TempData["i"].ToString()));
-                    int qid=  list.First().QUESTION_ID;
-
-                    TempData["qid"] = qid;
-                    //TBL_QUESTIONS q = db.TBL_QUESTIONS.Where(x => x.q_fk_catid == examid).SingleOrDefault();
                 }
                 else
                 {
-                    int qid = Convert.ToInt32(TempData["qid"].ToString());
-                    q = db.TBL_QUESTIONS.Where(x => x.QUESTION_ID == qid && x.q_fk_catid == examid).SingleOrDefault();
-                    
-                    var list = db.TBL_QUESTIONS.Skip(Convert.ToInt32(TempData["i"].ToString()));
-                    qid = list.First().QUESTION_ID;
-                    TempData["qid"] = qid;
-                    TempData["i"] = Convert.ToInt32(TempData["i"].ToString()) + 1;
+                    return RedirectToAction("EndExam");
                 }
-                TempData.Keep();
 
-                return View(q);
             }
-            catch (Exception)
+            else
             {
                 return RedirectToAction("StudentExam");
+
             }
-            
+
+
+            return View(q);   
         }
         [HttpPost]
 
         public ActionResult QuizStart(TBL_QUESTIONS q)
         {
             return RedirectToAction("QuizStart");
+        }
+
+        public ActionResult EndExam()
+        {
+
+            return View();
         }
         public ActionResult Dashboard()
         {
@@ -225,7 +226,6 @@ namespace quiz.Controllers
             ViewData["list"] = li;
             return View();
         }
-
         [HttpPost]
         public ActionResult AddCategory(tbl_category cat)
         {

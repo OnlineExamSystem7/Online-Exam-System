@@ -13,7 +13,7 @@
     <h1 style="color:green">@TempData["msg"]</h1>
     <div class="form-horizontal">
         <div class="form-group">
-            @Html.LabelFor(model => model.q_fk_catid, "q_fk_catid", htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.q_fk_catid, "Select Category", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.DropDownList("q_fk_catid", ViewBag.list as SelectList, "--select--", htmlAttributes: new { @class = "form-control" })
                 @Html.ValidationMessageFor(model => model.q_fk_catid, "", new { @class = "text-danger" })
@@ -68,7 +68,6 @@
                 @Html.ValidationMessageFor(model => model.COP, "", new { @class = "text-danger" })
             </div>
         </div>
-
 
 
         <div class="form-group">

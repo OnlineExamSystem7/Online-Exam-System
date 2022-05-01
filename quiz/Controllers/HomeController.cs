@@ -80,7 +80,6 @@ namespace quiz.Controllers
         public ActionResult tlogin()
         {
 
-
             return View();
         }
         [HttpPost]

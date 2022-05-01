@@ -143,6 +143,7 @@ namespace quiz.Controllers
                     {
                         queue.Enqueue(a);
                     }
+                    TempData["examid"] = item.cat_id;
                     TempData["questions"]=queue;
                     TempData["score"] = 0;
                     TempData.Keep();
@@ -196,7 +197,32 @@ namespace quiz.Controllers
 
         public ActionResult QuizStart(TBL_QUESTIONS q)
         {
-            return RedirectToAction("QuizStart");
+            String correctans = null;
+            if(q.OPA!=null)
+            {
+                correctans = "A";
+            }
+            else if (q.OPB!=null)
+            {
+                correctans = "B";
+
+            }
+            else if (q.OPC != null)
+            {
+                correctans = "C";
+
+            }
+            else if (q.OPD != null)
+            {
+                correctans = "D";
+            }
+            if (correctans.Equals(q.COP))
+            {
+                TempData["score"]=Convert.ToInt32(TempData["score"]) + 1;
+            }
+            TempData.Keep();
+
+                return RedirectToAction("QuizStart");
         }
 
         public ActionResult EndExam()
@@ -226,6 +252,12 @@ namespace quiz.Controllers
             ViewData["list"] = li;
             return View();
         }
+        public ActionResult ExamEnd()
+        {
+            return View();
+
+        }
+
         [HttpPost]
         public ActionResult AddCategory(tbl_category cat)
         {

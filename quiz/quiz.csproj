@@ -224,6 +224,8 @@
     <Content Include="Views\Home\StudentExam.cshtml" />
     <Content Include="Views\Home\QuizStart.cshtml" />
     <Content Include="Views\Home\EndExam.cshtml" />
+    <Content Include="Views\Index.cshtml" />
+    <Content Include="Views\Home\ExamEnd.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

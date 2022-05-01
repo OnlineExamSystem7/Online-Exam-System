@@ -276,8 +276,6 @@ namespace quiz.Controllers
             db.SaveChanges();
             TempData["msg"] = "Question Added Successfully...";
             return RedirectToAction("Addquestion");
-
-           
         }
         
         public ActionResult Index()

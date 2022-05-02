@@ -11,15 +11,18 @@ namespace quiz.Models
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+
     public partial class tbl_category
     {
         public tbl_category()
         {
             this.TBL_QUESTIONS = new HashSet<TBL_QUESTIONS>();
         }
-    
+        
         public int cat_id { get; set; }
+        [Display(Name = "Select Category")]
+        [Required(ErrorMessage = "*")]
         public string cat_name { get; set; }
         public Nullable<int> cat_fk_adid { get; set; }
         public string cat_encryptedstring { get; set; }

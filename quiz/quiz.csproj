@@ -163,6 +163,7 @@
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\img\main.jpg" />
+    <Content Include="Content\img\n-1.jpg" />
     <Content Include="Content\img\roomid.jpg" />
     <Content Include="Content\img\sregister.jpg" />
     <Content Include="favicon.ico" />
@@ -223,6 +224,8 @@
     <Content Include="Views\Home\Addquestion.cshtml" />
     <Content Include="Views\Home\StudentExam.cshtml" />
     <Content Include="Views\Home\QuizStart.cshtml" />
+    <Content Include="Views\Home\EndExam.cshtml" />
+    <Content Include="Views\Home\ExamEnd.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -38,21 +38,21 @@ namespace quiz.Controllers
 
             return View();
         }
-        public string uploadimage(HttpPostedFileBase imgfile )
+        public string uploadimage(HttpPostedFileBase imgfile)
         {
             string path = "-1";
 
             try
             {
-                if(imgfile!= null && imgfile.ContentLength>0)
+                if (imgfile != null && imgfile.ContentLength > 0)
                 {
                     string extension = Path.GetExtension(imgfile.FileName);
                     if (extension.ToLower().Equals("jpg") || extension.ToLower().Equals("jpeg") || extension.ToLower().Equals("png"))
                     {
                         //Path.Combine(Server.MapPath("~/Content/upload"), random + Path.GetFileName(file.FileName));
 
-                        Random r=new Random();
-                        path = Path.Combine(Server.MapPath("~/Content/img"),r+Path.GetFileName(imgfile.FileName));
+                        Random r = new Random();
+                        path = Path.Combine(Server.MapPath("~/Content/img"), r + Path.GetFileName(imgfile.FileName));
                         imgfile.SaveAs(path);
                         path = "~/Content/img" + r + Path.GetFileName(imgfile.FileName);
                     }
@@ -60,7 +60,7 @@ namespace quiz.Controllers
 
 
             }
-            catch(Exception)
+            catch (Exception)
             {
 
             }
@@ -80,13 +80,14 @@ namespace quiz.Controllers
         public ActionResult tlogin()
         {
 
+
             return View();
         }
         [HttpPost]
         public ActionResult tlogin(TBL_ADMIN a)
         {
             TBL_ADMIN ad = db.TBL_ADMIN.Where(x => x.AD_NAME == a.AD_NAME && x.AD_PASSWORD == a.AD_PASSWORD).SingleOrDefault();
-            if(ad != null)
+            if (ad != null)
             {
                 Session["ad_id"] = ad.AD_ID;
                 return RedirectToAction("Dashboard");
@@ -105,8 +106,8 @@ namespace quiz.Controllers
         [HttpPost]
         public ActionResult slogin(TBL_STUDENT s)
         {
-            TBL_STUDENT std=db.TBL_STUDENT.Where(x =>x.S_NAME==s.S_NAME && x.S_PASSWORD==s.S_PASSWORD).SingleOrDefault();
-            if(std== null)
+            TBL_STUDENT std = db.TBL_STUDENT.Where(x => x.S_NAME == s.S_NAME && x.S_PASSWORD == s.S_PASSWORD).SingleOrDefault();
+            if (std == null)
             {
                 ViewBag.msg = "Invalid Email or Password!";
             }
@@ -126,17 +127,25 @@ namespace quiz.Controllers
             }
 
             return View();
-        } 
+        }
         [HttpPost]
         public ActionResult StudentExam(string room)
         {
             List<tbl_category> list = db.tbl_category.ToList();
 
-            foreach(var item in list)
+            foreach (var item in list)
             {
-                if (item.cat_encryptedstring ==room)
+                if (item.cat_encryptedstring == room)
                 {
-                    TempData["exampid"] = item.cat_id;
+                    List<TBL_QUESTIONS> li = db.TBL_QUESTIONS.Where(x => x.q_fk_catid == item.cat_id).ToList();
+                    Queue<TBL_QUESTIONS> queue = new Queue<TBL_QUESTIONS>();
+                    foreach (TBL_QUESTIONS a in li)
+                    {
+                        queue.Enqueue(a);
+                    }
+                    TempData["examid"] = item.cat_id;
+                    TempData["questions"] = queue;
+                    TempData["score"] = 0;
                     TempData.Keep();
                     return RedirectToAction("QuizStart");
                 }
@@ -145,62 +154,81 @@ namespace quiz.Controllers
                     ViewBag.error = "No Room Found.....";
                 }
             }
-           
+
 
             return View();
         }
-        
+
         public ActionResult QuizStart()
         {
-            
-            if (TempData["i"] == null)
-            {
-                TempData["i"] = 1;
-            }
-            if (Session["std_id"]==null)
+            if (Session["std_id"] == null)
             {
                 return RedirectToAction("slogin");
             }
+            TBL_QUESTIONS q = null;
 
-            try
+            if (TempData["questions"] != null)
             {
-                TBL_QUESTIONS q = null;
-                int examid = Convert.ToInt32(TempData["examid"].ToString());
-                if (TempData["qid"] == null)
+                Queue<TBL_QUESTIONS> qlist = (Queue<TBL_QUESTIONS>)TempData["questions"];
+                if (qlist.Count > 0)
                 {
+                    q = qlist.Peek();
+                    qlist.Dequeue();
+                    TempData["questions"] = qlist;
+                    TempData.Keep();
 
-                    q = db.TBL_QUESTIONS.First(x => x.q_fk_catid == examid);
-                    var list = db.TBL_QUESTIONS.Skip(Convert.ToInt32(TempData["i"].ToString()));
-                    int qid=  list.First().QUESTION_ID;
-
-                    TempData["qid"] = qid;
-                    //TBL_QUESTIONS q = db.TBL_QUESTIONS.Where(x => x.q_fk_catid == examid).SingleOrDefault();
                 }
                 else
                 {
-                    int qid = Convert.ToInt32(TempData["qid"].ToString());
-                    q = db.TBL_QUESTIONS.Where(x => x.QUESTION_ID == qid && x.q_fk_catid == examid).SingleOrDefault();
-                    
-                    var list = db.TBL_QUESTIONS.Skip(Convert.ToInt32(TempData["i"].ToString()));
-                    qid = list.First().QUESTION_ID;
-                    TempData["qid"] = qid;
-                    TempData["i"] = Convert.ToInt32(TempData["i"].ToString()) + 1;
+                    return RedirectToAction("EndExam");
                 }
-                TempData.Keep();
 
-                return View(q);
             }
-            catch (Exception)
+            else
             {
                 return RedirectToAction("StudentExam");
-            }
-            
-        }
-        [HttpPost]
 
+            }
+             
+
+            return View(q);
+        }
+
+        [HttpPost]
         public ActionResult QuizStart(TBL_QUESTIONS q)
         {
+            String correctans = null;
+            if (q.OPA != null)
+            {
+                correctans = "A";
+            }
+            else if (q.OPB != null)
+            {
+                correctans = "B";
+
+            }
+            else if (q.OPC != null)
+            {
+                correctans = "C";
+
+            }
+            else if (q.OPD != null)
+            {
+                correctans = "D";
+            }
+            if (correctans.Equals(q.COP))
+            {
+                TempData["score"] = Convert.ToInt32(TempData["score"]) + 1;
+            }
+            TempData.Keep();
+
             return RedirectToAction("QuizStart");
+        }
+
+        public ActionResult EndExam()
+        {
+
+            return View();
         }
         public ActionResult Dashboard()
         {
@@ -213,16 +241,21 @@ namespace quiz.Controllers
         [HttpGet]
         public ActionResult AddCategory()
         {
-            if(Session["ad_id"]==null)
-                {
+            if (Session["ad_id"] == null)
+            {
                 return RedirectToAction("Index");
-                }
+            }
 
             //Session["ad_id"] = 1;
             int adid = Convert.ToInt32(Session["ad_id"].ToString());
             List<tbl_category> li = db.tbl_category.Where(x => x.cat_fk_adid == adid).OrderByDescending(x => x.cat_id).ToList();
             ViewData["list"] = li;
             return View();
+        }
+        public ActionResult ExamEnd()
+        {
+            return View();
+
         }
 
         [HttpPost]
@@ -246,8 +279,8 @@ namespace quiz.Controllers
         public ActionResult Addquestion()
         {
             int sid = Convert.ToInt32(Session["ad_id"]);
-            List<tbl_category> li = db.tbl_category.Where(x=>x.cat_fk_adid==sid).ToList();
-            ViewBag.list =new SelectList(li, "cat_id" , "cat_name");
+            List<tbl_category> li = db.tbl_category.Where(x => x.cat_fk_adid == sid).ToList();
+            ViewBag.list = new SelectList(li, "cat_id", "cat_name");
 
             return View();
         }
@@ -268,17 +301,20 @@ namespace quiz.Controllers
             QA.OPC = q.OPC;
             QA.OPD = q.OPD;
             QA.COP = q.COP;
-            QA.q_fk_catid = q.q_fk_catid;   
+            QA.q_fk_catid = q.q_fk_catid;
 
 
             db.TBL_QUESTIONS.Add(QA);
             db.SaveChanges();
             TempData["msg"] = "Question Added Successfully...";
             return RedirectToAction("Addquestion");
+
+
         }
-        
+
         public ActionResult Index()
-        { if(Session["ad_id"]!=null)
+        {
+            if (Session["ad_id"] != null)
             {
                 return RedirectToAction("Dashboard");
             }

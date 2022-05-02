@@ -162,6 +162,9 @@
   <ItemGroup>
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\img\admin.jpg" />
+    <Content Include="Content\img\Student.jpg" />
+    <Content Include="Content\img\Teach.jpg" />
     <Content Include="Content\img\main.jpg" />
     <Content Include="Content\img\n-1.jpg" />
     <Content Include="Content\img\roomid.jpg" />
